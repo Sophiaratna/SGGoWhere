@@ -128,6 +128,7 @@ const DetailPage = () => {
               )}
               {checkReview()}
               <ShowMaps
+                address={dataFetched.address}
                 latitude={dataFetched.location.latitude}
                 longitude={dataFetched.location.longitude}
               />
@@ -145,6 +146,7 @@ const DetailPage = () => {
               )}
               <RecommendFnB
                 location={`${dataFetched.location.latitude}%2C${dataFetched.location.longitude}`}
+                name={dataFetched.name}
               />
             </Col>
           </Row>

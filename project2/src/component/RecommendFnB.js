@@ -1,4 +1,3 @@
-import SampleFnB from "./SampleFnB";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Popover, Button, OverlayTrigger } from "react-bootstrap";
@@ -26,32 +25,40 @@ const RecommendFnB = (props) => {
       });
   }, [url]);
 
-  const showRecommendation = dataFetched.slice(0, 5).map((recommendation) => {
-    console.log("show recommendation is called. Name: ", recommendation.name);
-    const address = recommendation.address;
-    const popover = (
-      <Popover id="popover-basic">
-        <Popover.Title as="h3">Address</Popover.Title>
-        <Popover.Content>{`${address.block} ${address.streetName} ${
-          address.floorNumber !== ""
-            ? `#${address.floorNumber}-${address.unitNumber}`
-            : ""
-        } Singapore ${address.postalCode}`}</Popover.Content>
-      </Popover>
-    );
-    const setOverlay = (recommendation) => {
-      return (
-        <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-          <Button variant="light">{recommendation.name}</Button>
-        </OverlayTrigger>
+  const showRecommendation = () => {
+    const isSameItem = (item) => item.name === props.name;
+    const index = dataFetched.findIndex(isSameItem);
+    if (index >= 0) {
+      dataFetched.splice(index, 1);
+    }
+
+    const showRecommendation = dataFetched.slice(0, 5).map((recommendation) => {
+      const address = recommendation.address;
+      const popover = (
+        <Popover id="popover-basic">
+          <Popover.Title as="h3">Address</Popover.Title>
+          <Popover.Content>{`${address.block} ${address.streetName} ${
+            address.floorNumber !== ""
+              ? `#${address.floorNumber}-${address.unitNumber}`
+              : ""
+          } Singapore ${address.postalCode}`}</Popover.Content>
+        </Popover>
       );
-    };
-    return <p>{setOverlay(recommendation)}</p>;
-  });
+      const setOverlay = (recommendation) => {
+        return (
+          <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+            <Button variant="light">{recommendation.name}</Button>
+          </OverlayTrigger>
+        );
+      };
+      return <p>{setOverlay(recommendation)}</p>;
+    });
+    return showRecommendation;
+  };
 
   return (
     <div>
-      {errorMessage !== "" ? <p>{errorMessage}</p> : showRecommendation}
+      {errorMessage !== "" ? <p>{errorMessage}</p> : showRecommendation()}
     </div>
   );
 };
