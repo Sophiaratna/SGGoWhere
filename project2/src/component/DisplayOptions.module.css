@@ -1,0 +1,6 @@
+.cardText {
+  height: 12rem;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
