@@ -1,46 +1,66 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const ShowWeather = (props) => {
-  const [general, setGeneral] = useState({});
-  const [errorMessage, setErrorMessage] = useState("");
+const ShowWeather = () => {
+  const [weather, setWeather] = useState({});
 
-  const formatDate = () => {
-    let d = new Date(),
-      day = "" + d.getDate(),
-      month = "" + (d.getMonth() + 1),
-      year = d.getFullYear();
+  const dateFormat = () => {
+    let d = new Date();
+    let date = "" + d.getDate();
+    let month = "" + (d.getMonth() + 1);
+    let year = d.getFullYear();
 
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
+    if (month.length < 2) {
+      month = "0" + month;
+    }
+    if (date.length < 2) {
+      date = "0" + date;
+    }
 
-    console.log(day, month, year);
-
-    return [year, month, day].join("-");
+    return [year, month, date].join("-");
   };
 
-  const url = `https://api.data.gov.sg/v1/environment/24-hour-weather-forecast?date=${formatDate()}`;
+  const url = `https://api.data.gov.sg/v1/environment/24-hour-weather-forecast?date=${dateFormat()}`;
 
   useEffect(() => {
     console.log("Axios is fetching data with url: ", url);
-    axios
-      .get(url)
-      .then((response) => {
-        setGeneral(response.data.items[1].general);
-        console.log("response", response.data.items);
-      })
-      .catch((error) => {
-        setErrorMessage(error.response.data.status.errorDetail);
-        console.log("error:", error.response.data.status.errorDetail);
-      });
+    axios.get(url).then((response) => {
+      setWeather(response.data.items[1].general);
+      console.log("response", response.data.items);
+    });
   }, [url]);
-  console.log(general);
+
+  const checkWeather = () => {
+    const degree = (
+      <span>
+        <sup>o</sup>C
+      </span>
+    );
+    if (weather.forecast === undefined) {
+      return <p>Loading..</p>;
+    } else {
+      return (
+        <>
+          <p>Forecast: {weather.forecast}</p>
+          <p>
+            {`Temperature: ${weather.temperature.low}`} {degree} -{" "}
+            {`${weather.temperature.high}`} {degree}
+          </p>
+        </>
+      );
+    }
+  };
   return (
     <div>
       <hr />
-      <h3>Heading down? Why not check the weather today</h3>
-      <p>{general.forecast}</p>
-      <p>{`Temperature: ${general.temperature.low}-${general.temperature.high}`}</p>
+      <h3>Heading down? Why not check the weather for today</h3>
+      {checkWeather()}
+      <p>
+        For more information, please visit{" "}
+        <a href="https://www.nea.gov.sg/weather" target="_blank">
+          here
+        </a>
+      </p>
     </div>
   );
 };

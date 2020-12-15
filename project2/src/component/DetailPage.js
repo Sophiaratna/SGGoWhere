@@ -2,6 +2,7 @@ import samplePhoto from "./image/attraction.jpg";
 import RecommendFnB from "./RecommendFnB";
 import ShowMaps from "./ShowMaps";
 import ShowWeather from "./ShowWeather";
+import BusinessHour from "./BusinessHour";
 import Interweave from "interweave";
 import Moment from "react-moment";
 import { Container, Row, Col, Badge } from "react-bootstrap";
@@ -82,27 +83,44 @@ const DetailPage = () => {
     }
   };
 
-  const businessHour = () => {
-    if (category !== "accommodation" && dataFetched.businessHour.length > 0) {
+  const contactDetails = () => {
+    const showWebsite = () => {
+      if (dataFetched.officialWebsite !== "") {
+        return (
+          <>
+            <p>
+              Pls visit the{" "}
+              <a
+                href={`https://${dataFetched.officialWebsite}`}
+                target="_blank"
+              >
+                website
+              </a>{" "}
+              for more information
+            </p>
+          </>
+        );
+      }
+    };
+
+    if (dataFetched.contact.primaryContactNo !== undefined) {
       return (
         <>
-          <h5>Operating hours: </h5>
-          {dataFetched.businessHour.map((day) => {
-            return (
-              <>
-                <p>
-                  <strong>{day.day.toUpperCase()}</strong>
-                </p>
-                <p>Open: {day.openTime}</p>
-                <p>Close: {day.closeTime}</p>
-              </>
-            );
-          })}
+          <hr />
+          <h5>Contact Details </h5>
+          <p>
+            {dataFetched.contact.primaryContactNo !== "" &&
+              `Primary contact No.: ${dataFetched.contact.primaryContactNo}`}
+          </p>
+          <p>
+            {dataFetched.officialEmail !== "" &&
+              `Official Email Address: ${dataFetched.officialEmail}`}
+          </p>
+          {showWebsite()}
         </>
       );
     }
   };
-
   const showDetailPage = () => {
     if (dataFetched.name === undefined) {
       return <p>Page is loading</p>;
@@ -110,7 +128,7 @@ const DetailPage = () => {
       return (
         <Container>
           <Row>
-            <Col md={10}>
+            <Col md={9}>
               <h1>
                 <Interweave content={dataFetched.name} />
               </h1>
@@ -122,6 +140,11 @@ const DetailPage = () => {
                 ))}
               <Interweave content={dataFetched.body} />
               <img src={samplePhoto} width="500" height="300" />
+              {/* <img
+                src={`https://tih.stb.gov.sg/bin/GetMediaByUuid?uuid=${dataFetched.images[0].uuid}&mediaType=image`}
+                width="500"
+                height="300"
+              /> */}
               <hr />
               {dataFetched.nearestMrtStation !== "" && (
                 <p>Nearest MRT station: {dataFetched.nearestMrtStation}</p>
@@ -132,17 +155,18 @@ const DetailPage = () => {
                 latitude={dataFetched.location.latitude}
                 longitude={dataFetched.location.longitude}
               />
-              <ShowWeather
-                latitude={dataFetched.location.latitude}
-                longitude={dataFetched.location.longitude}
-              />
+              <ShowWeather />
             </Col>
-            <Col md={2}>
-              {businessHour()}
+            <Col md={3}>
+              <BusinessHour
+                data={dataFetched.businessHour}
+                category={category}
+              />
+              {contactDetails()}
               {category !== "food_beverages" ? (
-                <h6>Recommended F&B within 1km:</h6>
+                <h5>Recommended F&B within 1km:</h5>
               ) : (
-                <h6>Other recommeded F&B around the area</h6>
+                <h5>Other recommeded F&B around the area</h5>
               )}
               <RecommendFnB
                 location={`${dataFetched.location.latitude}%2C${dataFetched.location.longitude}`}

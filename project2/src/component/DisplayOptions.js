@@ -34,6 +34,10 @@ const DisplayOptions = (props) => {
         <div className="col-md-4">
           <Card bg="light" text="dark" style={{ width: "28rem" }}>
             <Card.Img variant="top" src={samplePhoto} />
+            {/* <Card.Img
+              variant="top"
+              src={`https://tih.stb.gov.sg/bin/GetMediaByUuid?uuid=${item.images[0].uuid}&mediaType=image`}
+            /> */}
             <Card.Body>
               <Card.Title>{item.name}</Card.Title>
               <div className={style.cardText}>
