@@ -5,6 +5,7 @@ import Moment from "react-moment";
 const ShowReview = (props) => {
   console.log("show review is called,", props.review);
   const reviews = props.reviews;
+  const name = props.name;
 
   const showRating = (review) => {
     let starRating = [];
@@ -43,6 +44,14 @@ const ShowReview = (props) => {
         ) : (
           <p>No review available yet</p>
         )}
+      </>
+    );
+  } else if (review === undefined && name !== "") {
+    return (
+      <>
+        <hr />
+        <h5>Reviews (0)</h5>
+        <p>No review available</p>
       </>
     );
   } else {

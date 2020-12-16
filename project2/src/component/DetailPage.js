@@ -131,7 +131,10 @@ const DetailPage = () => {
               {dataFetched.nearestMrtStation !== "" && (
                 <p>Nearest MRT Station: {dataFetched.nearestMrtStation}</p>
               )}
-              <ShowReview reviews={dataFetched.reviews} />
+              <ShowReview
+                reviews={dataFetched.reviews}
+                name={dataFetched.name}
+              />
               <ShowAddress
                 address={dataFetched.address}
                 latitude={dataFetched.location.latitude}
