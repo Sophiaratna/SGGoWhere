@@ -5,7 +5,7 @@ import NavigationBar from "./component/NavigationBar";
 import CategoryOptions from "./component/CategoryOptions";
 import DetailPage from "./component/DetailPage";
 import ScrollToTop from "./component/ScrollToTop";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const App = () => {
   return (

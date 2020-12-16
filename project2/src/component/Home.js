@@ -28,6 +28,7 @@ const HomePage = () => {
               src="https://www.youtube.com/embed/P_q3BdrFsLI"
               frameborder="50"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              title="singapore"
             ></iframe>
           </Col>
         </Row>

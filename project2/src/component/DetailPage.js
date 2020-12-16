@@ -1,10 +1,12 @@
-import samplePhoto from "./image/attraction.jpg";
+// import samplePhoto from "./image/attraction.jpg";
+import loading from "./image/loading.gif";
+import noImage from "./image/no-img-avail.png";
 import RecommendFnB from "./RecommendFnB";
-import ShowMaps from "./ShowMaps";
+import ShowAddress from "./ShowAddress";
+import ShowReview from "./ShowReview";
 import ShowWeather from "./ShowWeather";
 import BusinessHour from "./BusinessHour";
 import Interweave from "interweave";
-import Moment from "react-moment";
 import { Container, Row, Col, Badge } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -41,59 +43,24 @@ const DetailPage = () => {
       });
   }, [url]);
 
-  const checkReview = () => {
-    const showRating = (review) => {
-      let starRating = [];
-      const rating = Math.floor(parseInt(review.rating));
-      for (let i = 0; i < rating; i++) {
-        starRating.push(<span>&#9733;</span>);
-      }
-      return starRating;
-    };
-
-    const displayReviews = (review) => {
-      return (
-        <Row>
-          <Col md={2}>
-            <img src={review.profilephoto} />
-            <p>{review.profilephoto}</p>
-            <p>{review.authorName}</p>
-          </Col>
-          <Col md={10}>
-            <p>{showRating(review)}</p>
-            <p>
-              <Moment>{review.time}</Moment>
-            </p>
-            <p>{review.text}</p>
-          </Col>
-        </Row>
-      );
-    };
-    if (dataFetched.reviews !== undefined) {
-      return (
-        <>
-          <h5>Reviews ({dataFetched.reviews.length}) </h5>
-          {dataFetched.reviews.length > 0 ? (
-            dataFetched.reviews.map((review) => displayReviews(review))
-          ) : (
-            <p>No review available yet</p>
-          )}
-        </>
-      );
-    }
-  };
-
   const contactDetails = () => {
     const showWebsite = () => {
-      if (dataFetched.officialWebsite !== "") {
+      const website = dataFetched.officialWebsite;
+
+      const checkOfficialWebsite = () => {
+        if (website.includes("https")) {
+          return website;
+        } else {
+          return `https://${website}`;
+        }
+      };
+
+      if (website !== "") {
         return (
           <>
             <p>
               Pls visit the{" "}
-              <a
-                href={`https://${dataFetched.officialWebsite}`}
-                target="_blank"
-              >
+              <a href={checkOfficialWebsite()} target="_blank" rel="noreferrer">
                 website
               </a>{" "}
               for more information
@@ -121,9 +88,22 @@ const DetailPage = () => {
       );
     }
   };
+
+  const checkImage = (data) => {
+    if (data.images === undefined) {
+      return loading;
+    } else if (data.images.length === 0) {
+      return noImage;
+    } else if (data.images[0].uuid === "") {
+      return data.images[0].url;
+    } else {
+      return `https://tih.stb.gov.sg/bin/GetMediaByUuid?uuid=${data.images[0].uuid}&mediaType=image`;
+    }
+  };
+
   const showDetailPage = () => {
     if (dataFetched.name === undefined) {
-      return <p>Page is loading</p>;
+      return <img src={loading} alt="loading" />;
     } else {
       return (
         <Container>
@@ -135,22 +115,24 @@ const DetailPage = () => {
               {dataFetched.tags.length > 0 &&
                 dataFetched.tags.map((tag) => (
                   <Badge pill variant="info">
-                    {tag}
+                    {`#${tag}`}
                   </Badge>
                 ))}
+              <br />
               <Interweave content={dataFetched.body} />
-              <img src={samplePhoto} width="500" height="300" />
-              {/* <img
-                src={`https://tih.stb.gov.sg/bin/GetMediaByUuid?uuid=${dataFetched.images[0].uuid}&mediaType=image`}
+              {/* <img src={samplePhoto} width="500" height="300" /> */}
+              <img
+                src={checkImage(dataFetched)}
                 width="500"
                 height="300"
-              /> */}
+                alt="body"
+              />
               <hr />
               {dataFetched.nearestMrtStation !== "" && (
-                <p>Nearest MRT station: {dataFetched.nearestMrtStation}</p>
+                <p>Nearest MRT Station: {dataFetched.nearestMrtStation}</p>
               )}
-              {checkReview()}
-              <ShowMaps
+              <ShowReview reviews={dataFetched.reviews} />
+              <ShowAddress
                 address={dataFetched.address}
                 latitude={dataFetched.location.latitude}
                 longitude={dataFetched.location.longitude}
@@ -179,6 +161,7 @@ const DetailPage = () => {
     }
   };
 
+  console.log("here is data passed to detail page: ", dataFetched);
   return showDetailPage();
 };
 

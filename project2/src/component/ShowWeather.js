@@ -57,7 +57,11 @@ const ShowWeather = () => {
       {checkWeather()}
       <p>
         For more information, please visit{" "}
-        <a href="https://www.nea.gov.sg/weather" target="_blank">
+        <a
+          href="https://www.nea.gov.sg/weather"
+          target="_blank"
+          rel="noreferrer"
+        >
           here
         </a>
       </p>

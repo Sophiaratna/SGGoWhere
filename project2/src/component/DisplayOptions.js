@@ -1,4 +1,6 @@
-import samplePhoto from "./image/attraction.jpg";
+// import samplePhoto from "./image/attraction.jpg";
+import loading from "./image/loading.gif";
+import noImage from "./image/no-img-avail.png";
 import { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
@@ -8,6 +10,7 @@ import style from "./DisplayOptions.module.css";
 const DisplayOptions = (props) => {
   console.log("Display options is called");
   const data = props.data.data.results;
+  console.log("data at display options is: ", data);
   const dataLength = data.length;
   const [view, setView] = useState(0);
   const [prevCategory, setPrevCategory] = useState("");
@@ -18,6 +21,19 @@ const DisplayOptions = (props) => {
       setPrevCategory(props.category);
     }
   };
+
+  const checkImage = (item) => {
+    if (item.images === undefined) {
+      return loading;
+    } else if (item.images.length === 0) {
+      return noImage;
+    } else if (item.images[0].uuid === "") {
+      return item.images[0].url;
+    } else {
+      return `https://tih.stb.gov.sg/bin/GetMediaByUuid?uuid=${item.images[0].uuid}&mediaType=image`;
+    }
+  };
+
   const loadmore = () => {
     setView(view + 10);
   };
@@ -32,12 +48,17 @@ const DisplayOptions = (props) => {
     const display = data.slice(0, view).map((item) => {
       return (
         <div className="col-md-4">
-          <Card bg="light" text="dark" style={{ width: "28rem" }}>
-            <Card.Img variant="top" src={samplePhoto} />
-            {/* <Card.Img
+          <Card
+            bg="light"
+            text="dark"
+            style={{ width: "28rem", height: "40rem" }}
+          >
+            {/* <Card.Img variant="top" src={samplePhoto} /> */}
+            <Card.Img
               variant="top"
-              src={`https://tih.stb.gov.sg/bin/GetMediaByUuid?uuid=${item.images[0].uuid}&mediaType=image`}
-            /> */}
+              src={checkImage(item)}
+              style={{ width: "28rem", height: "20rem" }}
+            />
             <Card.Body>
               <Card.Title>{item.name}</Card.Title>
               <div className={style.cardText}>
@@ -47,7 +68,12 @@ const DisplayOptions = (props) => {
               </div>
               <div>
                 <Button variant="primary">
-                  <NavLink to={`${path}/${item.uuid}`}>Explore More</NavLink>
+                  <NavLink
+                    to={`${path}/${item.uuid}`}
+                    style={{ color: "white" }}
+                  >
+                    I want to know More!
+                  </NavLink>
                 </Button>
               </div>
             </Card.Body>

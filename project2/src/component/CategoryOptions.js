@@ -1,3 +1,4 @@
+import loading from "./image/loading.gif";
 import { Jumbotron } from "react-bootstrap";
 import { useParams, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -11,14 +12,6 @@ const pair = {
   food_beverages: "food and beverages",
   tour: "Tours",
 };
-
-const categories = [
-  "attractions",
-  "accommodation",
-  "bars-clubs",
-  "food-beverages",
-  "tour",
-];
 
 const CategoryOptions = (props) => {
   console.log("Category options is called");
@@ -54,20 +47,10 @@ const CategoryOptions = (props) => {
         console.log("response", response.data);
       })
       .catch((error) => {
-        setErrorMessage(error.response.data.status.errorDetail);
         console.log("error:", error.response.data.status.errorDetail);
+        setErrorMessage(error.response.data.status.errorDetail);
       });
   }, [url]);
-
-  // const othCategories = categories.map((item, index) => {
-  //   if (item !== category) {
-  //     return (
-  //       <button index={item}>
-  //         <NavLink to={`/${item}`}>{pair[item]}</NavLink>
-  //       </button>
-  //     );
-  //   }
-  // });
 
   const checkKeyword = () => {
     console.log("keywordQuery is ", keywordQuery);
@@ -98,9 +81,11 @@ const CategoryOptions = (props) => {
       </button>
       {checkKeyword()}
       {errorMessage !== "" ? (
-        <p>{errorMessage}</p>
+        <p>
+          <strong>{"Record not found :( Search again"}</strong>
+        </p>
       ) : dataFetched.data === undefined ? (
-        <p>Loading..</p>
+        <img src={loading} alt="loading" />
       ) : (
         <DisplayOptions
           data={dataFetched}

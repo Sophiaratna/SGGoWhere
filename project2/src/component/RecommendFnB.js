@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Popover, Button, OverlayTrigger } from "react-bootstrap";
+import axios from "axios";
 
 const RecommendFnB = (props) => {
   console.log("recommend fnb is called");
@@ -34,14 +34,28 @@ const RecommendFnB = (props) => {
 
     const showRecommendation = dataFetched.slice(0, 5).map((recommendation) => {
       const address = recommendation.address;
+      let floorNumber = address.floorNumber;
+      let unitNumber = address.unitNumber;
+      if (floorNumber.length === 1) {
+        floorNumber = "0" + floorNumber;
+      }
+      if (unitNumber.length === 1) {
+        unitNumber = "0" + unitNumber;
+      }
+      const fullAddress = `${address.block} ${address.streetName} ${
+        address.floorNumber !== "" ? `#${floorNumber}-${unitNumber}` : ""
+      } Singapore ${address.postalCode}`;
+
+      const mapLink = `https://www.google.com.sg/maps/?q=${fullAddress}`;
+
       const popover = (
         <Popover id="popover-basic">
           <Popover.Title as="h3">Address</Popover.Title>
-          <Popover.Content>{`${address.block} ${address.streetName} ${
-            address.floorNumber !== ""
-              ? `#${address.floorNumber}-${address.unitNumber}`
-              : ""
-          } Singapore ${address.postalCode}`}</Popover.Content>
+          <Popover.Content>
+            <a href={mapLink} target="_blank" rel="noreferrer">
+              {fullAddress}
+            </a>
+          </Popover.Content>
         </Popover>
       );
       const setOverlay = (recommendation) => {
@@ -53,12 +67,13 @@ const RecommendFnB = (props) => {
       };
       return <p>{setOverlay(recommendation)}</p>;
     });
+
     return showRecommendation;
   };
 
   return (
     <div>
-      {errorMessage !== "" ? <p>{errorMessage}</p> : showRecommendation()}
+      {errorMessage !== "" ? <p>No Info Available</p> : showRecommendation()}
     </div>
   );
 };

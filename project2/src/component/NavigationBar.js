@@ -1,5 +1,5 @@
 import sgLogo from "./image/SGlogo.jpg";
-import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 const NavigationBar = () => {
@@ -37,10 +37,6 @@ const NavigationBar = () => {
             <NavLink to="/tour">Tours</NavLink>
           </Nav.Link>
         </Nav>
-        {/* <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-success">Search</Button>
-        </Form> */}
       </Navbar.Collapse>
     </Navbar>
   );
