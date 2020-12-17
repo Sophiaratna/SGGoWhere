@@ -1,5 +1,5 @@
 import loading from "./image/loading.gif";
-import { Jumbotron } from "react-bootstrap";
+import { Jumbotron, Button } from "react-bootstrap";
 import { useParams, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import DisplayOptions from "./DisplayOptions.js";
@@ -63,22 +63,42 @@ const CategoryOptions = (props) => {
   };
 
   return (
-    <div>
+    <div className="container-fluid">
       <Jumbotron>
         <h1>{heading.toUpperCase()}</h1>
         <p>Some background image here</p>
       </Jumbotron>
-      Not what you are looking for? Try searching here:
-      <input
-        type="text"
-        placeholder="Search by keyword.."
-        name="keyword"
-        value={keyword}
-        onChange={(event) => handleChange(event)}
-      ></input>
-      <button>
-        <NavLink to={`/${category}/${keyword}`}>Search</NavLink>
-      </button>
+      <div className="row">
+        <h5 className="col-md-4 offset-md-4">
+          Not what you are looking for? Try searching here:
+        </h5>
+        <div className="col-md-4 offset-md-4">
+          <input
+            type="text"
+            placeholder="Search by keyword.."
+            name="keyword"
+            value={keyword}
+            onChange={(event) => handleChange(event)}
+            className="mb-4"
+            size="50"
+          ></input>
+          <Button
+            className="ml-2"
+            variant="primary"
+            disabled={keyword === "" ? true : false}
+          >
+            <NavLink
+              to={`/${category}/${keyword}`}
+              style={{ color: "white", textDecoration: "none" }}
+              onClick={() => {
+                setKeyword("");
+              }}
+            >
+              Search
+            </NavLink>
+          </Button>
+        </div>
+      </div>
       {checkKeyword()}
       {errorMessage !== "" ? (
         <p>

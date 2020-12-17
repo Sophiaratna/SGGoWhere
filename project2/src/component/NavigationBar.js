@@ -1,13 +1,29 @@
 import sgLogo from "./image/SGlogo.jpg";
 import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 const NavigationBar = () => {
   console.log("Navigation bar is called");
+  const [navbar, setNavbar] = useState(false);
+
+  const changeBackground = () => {
+    if (window.scrollY >= 100) {
+      setNavbar(true);
+    } else {
+      setNavbar(false);
+    }
+  };
+
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" className="navbar">
       <Navbar.Brand>
-        <NavLink to="/">
+        <NavLink
+          to="/"
+          style={{ textDecoration: "none" }}
+          exact
+          activeClassName="active-link"
+        >
           <img
             alt=""
             src={sgLogo}
@@ -22,19 +38,54 @@ const NavigationBar = () => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link>
-            <NavLink to="/attractions">Attractions</NavLink>
+            <NavLink
+              to="/attractions"
+              style={{ textDecoration: "none" }}
+              className="navlink"
+              activeClassName="active-link"
+            >
+              Attractions
+            </NavLink>
           </Nav.Link>
           <Nav.Link>
-            <NavLink to="/accommodation">Accommodation</NavLink>
+            <NavLink
+              to="/accommodation"
+              style={{ textDecoration: "none" }}
+              className="navlink"
+              activeClassName="active-link"
+            >
+              Accommodation
+            </NavLink>
           </Nav.Link>
           <Nav.Link>
-            <NavLink to="/bars_clubs">Bars and Clubs</NavLink>
+            <NavLink
+              to="/bars_clubs"
+              style={{ textDecoration: "none" }}
+              className="navlink"
+              activeClassName="active-link"
+            >
+              Bars and Clubs
+            </NavLink>
           </Nav.Link>
           <Nav.Link>
-            <NavLink to="/food_beverages">Food and Beverages</NavLink>
+            <NavLink
+              to="/food_beverages"
+              style={{ textDecoration: "none" }}
+              className="navlink"
+              activeClassName="active-link"
+            >
+              Food and Beverages
+            </NavLink>
           </Nav.Link>
           <Nav.Link>
-            <NavLink to="/tour">Tours</NavLink>
+            <NavLink
+              to="/tour"
+              style={{ textDecoration: "none" }}
+              className="navlink"
+              activeClassName="active-link"
+            >
+              Tours
+            </NavLink>
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

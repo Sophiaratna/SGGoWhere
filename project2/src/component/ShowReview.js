@@ -46,7 +46,7 @@ const ShowReview = (props) => {
         )}
       </>
     );
-  } else if (review === undefined && name !== "") {
+  } else if (reviews === undefined && name !== "") {
     return (
       <>
         <hr />

@@ -52,6 +52,7 @@ const DisplayOptions = (props) => {
             bg="light"
             text="dark"
             style={{ width: "28rem", height: "40rem" }}
+            className="mb-5 ml-5 card-display"
           >
             {/* <Card.Img variant="top" src={samplePhoto} /> */}
             <Card.Img
@@ -67,7 +68,7 @@ const DisplayOptions = (props) => {
                 </Card.Text>
               </div>
               <div>
-                <Button variant="primary">
+                <Button variant="primary" style={{ textDecoration: "none" }}>
                   <NavLink
                     to={`${path}/${item.uuid}`}
                     style={{ color: "white" }}
@@ -98,8 +99,12 @@ const DisplayOptions = (props) => {
   return (
     <div>
       <div className="row">{display()}</div>
-      <div>
-        {view < dataLength && <button onClick={loadmore}>Load More</button>}
+      <div className="row">
+        {view < dataLength && (
+          <Button onClick={loadmore} className="col-md-6 offset-md-3 mb-5">
+            Load More
+          </Button>
+        )}
       </div>
     </div>
   );

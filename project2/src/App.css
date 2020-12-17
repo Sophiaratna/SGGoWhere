@@ -1,4 +1,24 @@
-.App {
+input[type="text"] {
+  padding: 6px 15px;
+  border: 1px blue solid;
+  border-radius: 4px;
+}
+
+.nav-link .navlink :hover {
+  transform: scale(1.5);
+  transition-duration: 0.5s;
+}
+
+.active-link {
+  font-weight: bold;
+  color: blue;
+}
+
+.card-display:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +55,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
