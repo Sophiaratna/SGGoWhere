@@ -68,10 +68,11 @@ const DisplayOptions = (props) => {
                 </Card.Text>
               </div>
               <div>
-                <Button variant="primary" style={{ textDecoration: "none" }}>
+                <Button style={{ textDecoration: "none" }}>
                   <NavLink
                     to={`${path}/${item.uuid}`}
-                    style={{ color: "white" }}
+                    className="button-navlink"
+                    // style={{ color: "lightcoral", textDecoration: "none" }}
                   >
                     I want to know More!
                   </NavLink>
@@ -84,17 +85,6 @@ const DisplayOptions = (props) => {
     });
     return display;
   };
-
-  // const errorDisplay = () => {
-  //   return (
-  //     <>
-  //       <p>Record not found..</p>
-  //       <button>
-  //         <NavLink to={`/${props.category}`}>Go back</NavLink>
-  //       </button>
-  //     </>
-  //   );
-  // };
 
   return (
     <div>

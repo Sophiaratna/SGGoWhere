@@ -106,7 +106,7 @@ const DetailPage = () => {
       return <img src={loading} alt="loading" />;
     } else {
       return (
-        <Container>
+        <Container className="mt-4 mb-4">
           <Row>
             <Col md={9}>
               <h1>

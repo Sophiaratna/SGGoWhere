@@ -4,6 +4,7 @@ import { useParams, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import DisplayOptions from "./DisplayOptions.js";
 import axios from "axios";
+import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 const pair = {
   attractions: "attractions",
@@ -65,8 +66,7 @@ const CategoryOptions = (props) => {
   return (
     <div className="container-fluid">
       <Jumbotron>
-        <h1>{heading.toUpperCase()}</h1>
-        <p>Some background image here</p>
+        <h1 style={{ textDecoration: "underline" }}>{heading.toUpperCase()}</h1>
       </Jumbotron>
       <div className="row">
         <h5 className="col-md-4 offset-md-4">
@@ -89,6 +89,7 @@ const CategoryOptions = (props) => {
           >
             <NavLink
               to={`/${category}/${keyword}`}
+              className="button-navlink"
               style={{ color: "white", textDecoration: "none" }}
               onClick={() => {
                 setKeyword("");

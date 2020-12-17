@@ -1,19 +1,9 @@
 import sgLogo from "./image/SGlogo.jpg";
 import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
 
 const NavigationBar = () => {
   console.log("Navigation bar is called");
-  const [navbar, setNavbar] = useState(false);
-
-  const changeBackground = () => {
-    if (window.scrollY >= 100) {
-      setNavbar(true);
-    } else {
-      setNavbar(false);
-    }
-  };
 
   return (
     <Navbar bg="light" expand="lg" className="navbar">

@@ -61,7 +61,9 @@ const RecommendFnB = (props) => {
       const setOverlay = (recommendation) => {
         return (
           <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-            <Button variant="light">{recommendation.name}</Button>
+            <Button variant="light" className="text-left">
+              {recommendation.name}
+            </Button>
           </OverlayTrigger>
         );
       };
