@@ -5,7 +5,8 @@
 - Singapore is so small, I dont know what to do over the weekend.
 - I run out of ideas on where to celebrate my mom’s birthday
 - Tired of working, want to have a good staycation in Singapore but dont know where
-  We often heard the above from our friend, colleague, family members or any people surrounding us. Moreover, with the travel restriction due to covid-19, we couldn’t travel out of the country to spend our well-deserved holiday. So, how shall we spend our holiday? Staying home is definitely not an option.
+
+We often heard the above from our friend, colleague, family members or any people surrounding us. Moreover, with the travel restriction due to covid-19, we couldn’t travel out of the country to spend our well-deserved holiday. So, how shall we spend our holiday? Staying home is definitely not an option.
 
 # Problem Statement
 
