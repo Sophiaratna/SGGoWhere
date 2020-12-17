@@ -11,19 +11,14 @@ const show = {
 };
 
 const BusinessHour = (props) => {
-  console.log("Business hour is called");
   const data = props.data;
   const category = props.category;
 
-  console.log(data, category);
   const showBizHr = () => {
-    console.log("show biz hour is called");
-    console.log(data);
     let display = [];
     if (data.length === 0) {
       display = [<p>No data available</p>];
     } else if (data.length <= 2) {
-      console.log(data);
       display = data.map((info) => {
         return (
           <>
@@ -88,7 +83,6 @@ const BusinessHour = (props) => {
         );
       });
     }
-    console.log(display);
     return display;
   };
 

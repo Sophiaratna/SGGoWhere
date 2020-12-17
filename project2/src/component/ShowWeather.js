@@ -23,10 +23,8 @@ const ShowWeather = () => {
   const url = `https://api.data.gov.sg/v1/environment/24-hour-weather-forecast?date=${dateFormat()}`;
 
   useEffect(() => {
-    console.log("Axios is fetching data with url: ", url);
     axios.get(url).then((response) => {
       setWeather(response.data.items[1].general);
-      console.log("response", response.data.items);
     });
   }, [url]);
 

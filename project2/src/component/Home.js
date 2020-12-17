@@ -4,7 +4,6 @@ import gbtb from "./image/gbtb.jpg";
 import mbs from "./image/mbs.jpg";
 
 const HomePage = () => {
-  console.log("HomePage is called");
   return (
     <div className="container-fluid">
       <Jumbotron>

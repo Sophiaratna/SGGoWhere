@@ -3,7 +3,6 @@ import { Row, Col } from "react-bootstrap";
 import Moment from "react-moment";
 
 const ShowReview = (props) => {
-  console.log("show review is called,", props.review);
   const reviews = props.reviews;
   const name = props.name;
 

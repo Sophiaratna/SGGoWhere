@@ -3,7 +3,6 @@ import { Popover, Button, OverlayTrigger } from "react-bootstrap";
 import axios from "axios";
 
 const RecommendFnB = (props) => {
-  console.log("recommend fnb is called");
   const [dataFetched, setDataFetched] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const location = props.location;
@@ -12,16 +11,13 @@ const RecommendFnB = (props) => {
   const url = `${baseUrl}location=${location}&radius=1000&dataset=food_beverages&${apiKey}`;
 
   useEffect(() => {
-    console.log("Axios is fetching data with url: ", url);
     axios
       .get(url)
       .then((response) => {
         setDataFetched(response.data.data);
-        console.log("response", response.data.data);
       })
       .catch((error) => {
         setErrorMessage(error.response.data.status.errorDetail);
-        console.log("error:", error.response.data.status.errorDetail);
       });
   }, [url]);
 

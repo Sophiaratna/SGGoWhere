@@ -4,7 +4,6 @@ import { useParams, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import DisplayOptions from "./DisplayOptions.js";
 import axios from "axios";
-import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 const pair = {
   attractions: "attractions",
@@ -15,7 +14,6 @@ const pair = {
 };
 
 const CategoryOptions = (props) => {
-  console.log("Category options is called");
   const [keyword, setKeyword] = useState("");
   const [dataFetched, setDataFetched] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
@@ -40,23 +38,17 @@ const CategoryOptions = (props) => {
   }
 
   useEffect(() => {
-    console.log("Axios is fetching data with url: ", url);
     axios
       .get(url)
       .then((response) => {
         setDataFetched(response.data);
-        console.log("response", response.data);
       })
       .catch((error) => {
-        console.log("error:", error.response.data.status.errorDetail);
         setErrorMessage(error.response.data.status.errorDetail);
       });
   }, [url]);
 
   const checkKeyword = () => {
-    console.log("keywordQuery is ", keywordQuery);
-    console.log("prev keyword: ", prevKeyword);
-    console.log("error: ", errorMessage);
     if (keywordQuery !== prevKeyword) {
       setErrorMessage("");
       setPrevKeyword(keywordQuery);

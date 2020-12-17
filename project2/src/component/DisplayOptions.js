@@ -1,4 +1,3 @@
-// import samplePhoto from "./image/attraction.jpg";
 import loading from "./image/loading.gif";
 import noImage from "./image/no-img-avail.png";
 import { useState } from "react";
@@ -8,9 +7,7 @@ import Interweave from "interweave";
 import style from "./DisplayOptions.module.css";
 
 const DisplayOptions = (props) => {
-  console.log("Display options is called");
   const data = props.data.data.results;
-  console.log("data at display options is: ", data);
   const dataLength = data.length;
   const [view, setView] = useState(0);
   const [prevCategory, setPrevCategory] = useState("");

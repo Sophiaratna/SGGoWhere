@@ -1,4 +1,3 @@
-// import samplePhoto from "./image/attraction.jpg";
 import loading from "./image/loading.gif";
 import noImage from "./image/no-img-avail.png";
 import RecommendFnB from "./RecommendFnB";
@@ -21,7 +20,6 @@ const pair = {
 };
 
 const DetailPage = () => {
-  console.log("Detail Page is called");
   let { category, uuid } = useParams();
   const [dataFetched, setDataFetched] = useState({});
 
@@ -31,16 +29,12 @@ const DetailPage = () => {
   const url = `${baseUrl}${pair[category]}?uuid=${uuid}&${apiKey}`;
 
   useEffect(() => {
-    console.log("Axios is fetching data with url: ", url);
-    axios
-      .get(url)
-      .then((response) => {
-        setDataFetched(response.data.data[0]);
-        console.log(response.data);
-      })
-      .catch((reason) => {
-        console.log("error", reason);
-      });
+    axios.get(url).then((response) => {
+      setDataFetched(response.data.data[0]);
+    });
+    // .catch((reason) => {
+    //   console.log("error", reason);
+    // });
   }, [url]);
 
   const contactDetails = () => {
@@ -164,7 +158,6 @@ const DetailPage = () => {
     }
   };
 
-  console.log("here is data passed to detail page: ", dataFetched);
   return showDetailPage();
 };
 

@@ -3,8 +3,6 @@ import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 const NavigationBar = () => {
-  console.log("Navigation bar is called");
-
   return (
     <Navbar bg="light" expand="lg" className="navbar">
       <Navbar.Brand>
